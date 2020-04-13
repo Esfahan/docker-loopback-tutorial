@@ -1,0 +1,33 @@
+version: '3.2'
+
+services:
+  web:
+    container_name: loopback-web
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    hostname: loopback-web
+    volumes:
+      - ./code:/code
+    ports:
+      - "3000:3000"
+    tty: true
+
+  db:
+    container_name: loopback-db
+    image: mysql:5.7
+    restart: always
+    hostname: loopback-db
+    env_file:
+      - .env
+    environment:
+      MYSQL_USER: loopback
+      MYSQL_DATABASE: loopback
+      TZ: "Asia/Tokyo"
+      BIND-ADDRESS: 0.0.0.0
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+      - ./conf/my.cnf:/etc/my.cnf
+    tty: true

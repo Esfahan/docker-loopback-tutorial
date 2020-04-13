@@ -1,0 +1,6 @@
+*.swp
+*~
+.env
+mysql_data
+code/*
+!code/.keep
